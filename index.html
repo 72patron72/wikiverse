@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="WikiVerse — modern, ücretsiz bilgi ansiklopedisi.">
+  <title>WikiVerse | Bilginin modern hali</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css">
+</head>
+<body data-page="home">
+  <header class="topbar"><a class="brand" href="index.html"><span>W</span>WikiVerse</a><nav><a href="#popular">Keşfet</a><a href="#categories">Kategoriler</a><a id="admin-link" href="admin.html" hidden>Yönetim</a></nav><button class="theme-toggle" aria-label="Temayı değiştir">☾</button></header>
+  <main class="site-grid home-layout">
+    <aside class="sidebar"><p class="eyebrow">KEŞFET</p><div id="category-menu" class="category-menu"></div><div class="side-card"><span class="tiny-icon">◎</span><b id="people-count">100+</b><small>kişilik koleksiyon</small></div></aside>
+    <section class="home-main">
+      <div class="hero"><p class="eyebrow">ÖZGÜR BİLGİ PLATFORMU</p><h1>Merak ettiğin her<br><em>hikâye</em> burada.</h1><p>Bilimden sanata, tarihten spora; dünyayı şekillendiren insanları keşfet.</p><div class="search-wrap"><span>⌕</span><input id="search-input" autocomplete="off" placeholder="Bir kişi ara: ör. Albert Einstein"><button id="random-btn">Rastgele kişi</button></div><div id="search-results" class="search-results" aria-live="polite"></div></div>
+      <section class="fact-card" id="daily-fact"><div class="fact-mark">✦</div><div><p class="eyebrow">GÜNÜN BİLGİSİ</p><h2>Bilgi yükleniyor…</h2><p></p><a href="#">Makaleye git →</a></div></section>
+      <section id="popular" class="content-section"><div class="section-heading"><div><p class="eyebrow">ÖNE ÇIKANLAR</p><h2>Popüler kişiler</h2></div><a href="article.html?category=all">Tümünü gör →</a></div><div id="popular-grid" class="people-grid"></div></section>
+      <section id="recent-section" class="content-section" hidden><div class="section-heading"><div><p class="eyebrow">KALDIĞIN YERDEN</p><h2>Son görüntülenen kişiler</h2></div></div><div id="recent-grid" class="people-grid"></div></section>
+      <section id="categories" class="content-section"><div class="section-heading"><div><p class="eyebrow">KONU BAŞLIKLARI</p><h2>Her alanda bilgi</h2></div></div><div id="category-cards" class="category-cards"></div></section>
+    </section>
+  </main>
+  <footer>© 2026 WikiVerse <span>Bilgi, paylaşınca büyür.</span></footer><script src="app.js"></script>
+</body></html>

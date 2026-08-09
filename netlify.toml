@@ -1,0 +1,13 @@
+[build]
+  command = "npm run build"
+  publish = "dist/assets"
+  functions = "netlify/functions"
+
+[functions]
+  included_files = ["admin.html"]
+
+[[redirects]]
+  from = "/admin.html"
+  to = "/.netlify/functions/admin"
+  status = 200
+  force = true
