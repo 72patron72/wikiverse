@@ -1,10 +1,9 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
-import { getStore } from "@netlify/blobs";
+import { connectLambda, getStore } from "@netlify/blobs";
 
 const cookieName = "wikiverse_admin";
-const store = getStore("wikiverse-catalogue");
 
 function sign(value) {
   return createHmac("sha256", process.env.ADMIN_SESSION_SECRET || "").update(value).digest("base64url");
@@ -23,7 +22,9 @@ async function seedPeople() {
   return JSON.parse(await readFile(join(process.cwd(), "data.json"), "utf8"));
 }
 
-async function currentPeople() {
+async function currentPeople(event) {
+  connectLambda(event);
+  const store = getStore("wikiverse-catalogue");
   return await store.get("people", { type: "json", consistency: "strong" }) || seedPeople();
 }
 
@@ -32,18 +33,19 @@ function json(statusCode, body) {
 }
 
 export async function handler(event) {
-  if (event.httpMethod === "GET") return json(200, await currentPeople());
+  if (event.httpMethod === "GET") return json(200, await currentPeople(event));
   if (!isAuthenticated(event)) return json(401, { error: "Yetkisiz istek." });
+  connectLambda(event);
+  const store = getStore("wikiverse-catalogue");
   if (event.httpMethod === "DELETE") {
     await store.delete("people");
     return json(200, await seedPeople());
   }
   if (event.httpMethod === "PUT") {
     const people = JSON.parse(event.body || "[]");
-    if (!Array.isArray(people) || people.some(person => !person?.id || !person?.name)) return json(400, { error: "GeÃ§ersiz kiÅŸi verisi." });
+    if (!Array.isArray(people) || people.some(person => !person?.id || !person?.name)) return json(400, { error: "Geçersiz kişi verisi." });
     await store.setJSON("people", people);
     return json(200, people);
   }
-  return json(405, { error: "YÃ¶nteme izin verilmiyor." });
+  return json(405, { error: "Yönteme izin verilmiyor." });
 }
-
