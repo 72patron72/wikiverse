@@ -2,5 +2,6 @@
   "name": "wikiverse",
   "private": true,
   "type": "module",
-  "scripts": { "build": "node build.js" }
+  "scripts": { "build": "node build.js" },
+  "dependencies": { "@netlify/blobs": "^9.1.1" }
 }
