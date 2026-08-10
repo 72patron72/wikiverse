@@ -25,7 +25,7 @@ async function seedPeople() {
 async function currentPeople(event) {
   connectLambda(event);
   const store = getStore("wikiverse-catalogue");
-  return await store.get("people", { type: "json", consistency: "strong" }) || seedPeople();
+  return await store.get("people", { type: "json" }) || seedPeople();
 }
 
 function json(statusCode, body) {
